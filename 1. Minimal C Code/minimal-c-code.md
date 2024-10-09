@@ -114,10 +114,10 @@ Obviously `ModuleID` and `source_filename` have changed. The other changes have 
 Let's try depict each line:
 - ` define dso_local i32 @main(i32 noundef %0, ptr noundef %1) #0 { `
     - `define`: function deifnition keyword.
-    - `i32`; number of bits allocated to return type? or i32 means a 32 bit integer.
+    - `i32`; number of bits allocated to return type. or i32 means a 32 bit integer.
     - `@main`: 
-    - `i32 noundef %0`: 32 bit integer parameter assigned to local register `0` with [noundef](#noundef-expl) optimisation.
-    - `ptr noundef %1`: ptr assigned to register `1` with [noundef](#noundef-expl) optimisation.
+    - `i32 noundef %0`: memory where 32 bit integer parameter is store, is assigned to local register `0` with [noundef](#noundef-expl) optimisation.
+    - `ptr noundef %1`: memory where ptr parameter is stored, is assigned to register `1` with [noundef](#noundef-expl) optimisation.
     - `#0`: gives the function attributes outlines in line 17.
 - ` %3 = alloca i32, align 4 `: allocate memory space for a 32 bit integer and store address in register 3. Align on 4-byte boundary.
 - ` %4 = alloca i32, align 4 `: another operation as above but stores this address in register 4.
