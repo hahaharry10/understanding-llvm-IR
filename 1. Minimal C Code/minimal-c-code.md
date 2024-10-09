@@ -66,9 +66,8 @@ To start lets have a look and see what sensible guesses we can make from this:
 Thought to read the [llvm documentation](https://llvm.org/docs/LangRef.html#syntax) to learn a few things:
 - `@` = prefix global identifiers.
 - `%` = prefix local identifiers.
-<a name="noundef">
+<a id="noundef-expl"></a>
 - `noundef` = Assigned to return types and parameters. Tells the compiler to make optimisations assuming the data will not contain undefined behaviour.
-</a>
 - `dso_local` = means the symbol can be referenced within the same linkage unit.
 - `#` defines an attribute group.
 
@@ -117,8 +116,8 @@ Let's try depict each line:
     - `define`: function deifnition keyword.
     - `i32`; number of bits allocated to return type? or i32 means a 32 bit integer.
     - `@main`: 
-    - `i32 noundef %0`: 32 bit integer parameter assigned to local register `0` with [noundef](#noundef) optimisation.
-    - `ptr noundef %1`: ptr assigned to register `1` with [noundef](#noundef) optimisation.
+    - `i32 noundef %0`: 32 bit integer parameter assigned to local register `0` with [noundef](#noundef-expl) optimisation.
+    - `ptr noundef %1`: ptr assigned to register `1` with [noundef](#noundef-expl) optimisation.
     - `#0`: gives the function attributes outlines in line 17.
 - ` %3 = alloca i32, align 4 `: allocate memory space for a 32 bit integer and store address in register 3. Align on 4-byte boundary.
 - ` %4 = alloca i32, align 4 `: another operation as above but stores this address in register 4.
