@@ -2,7 +2,7 @@
 
 ### The Most Basic C Code:
 Take a look at the following code:
-```minimal.c=
+```minimal.c
 int main(void) {
     return 0;
 }
@@ -20,7 +20,7 @@ $ clang -std=c89 -S -emit-llvm minimal.c
 ```
 
 And lets peak at its contents:
-```minimal.ll=
+```minimal.ll
 ; ModuleID = 'minimal.c'
 source_filename = "minimal.c"
 target datalayout = "e-m:e-i8:8:32-i16:16:32-i64:64-i128:128-n32:64-S128"
