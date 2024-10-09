@@ -1,8 +1,8 @@
 # Understanding IR of Minimal C Code:
 
-# The Most Basic C Code:
+### The Most Basic C Code:
 Take a look at the following code:
-```minimal.c
+```minimal.c=
 int main(void) {
     return 0;
 }
@@ -20,7 +20,7 @@ $ clang -std=c89 -S -emit-llvm minimal.c
 ```
 
 And lets peak at its contents:
-```minimal.ll
+```minimal.ll=
 ; ModuleID = 'minimal.c'
 source_filename = "minimal.c"
 target datalayout = "e-m:e-i8:8:32-i16:16:32-i64:64-i128:128-n32:64-S128"
@@ -47,9 +47,9 @@ attributes #0 = { noinline nounwind optnone uwtable "frame-pointer"="non-leaf" "
 ```
 
 To start lets have a look and see what sensible guesses we can make from this:
-    - Line 1-4 seems to contain some form of metadata about the system?
-    - `%` seems to be the symbol for referencing a register.
-    - Line 7-11 describes the operations of the `main()` function and seems to work in the following way (semi-colons are comments btw):
+- First 4 lines seems to contain some form of metadata about the system?
+- `%` seems to be the symbol for referencing a register.
+- Line 7-11 describes the operations of the `main()` function and seems to work in the following way (semi-colons are comments btw):
     ```
     %1 = alloca i32, align 4        ; Allocate 32 bits to register 1.
     store i32 0, ptr %1, align 4    ; Store the value '0' to register 1.
@@ -60,4 +60,4 @@ To start lets have a look and see what sensible guesses we can make from this:
     ret i32 1
     ```
     So the `store` operation in line 9 doesn't seem to have any relevance to the return value. So what does it do? no idea... yet.
-    - The format for the instruction set seems to be `[operation] [source value], [destination address], align [number]`. I have a suspicion that `align` is something to do with shifting a pointer x number of bytes, but we shall see.
+- The format for the instruction set seems to be `[operation] [source value], [destination address], align [number]`. I have a suspicion that `align` is something to do with shifting a pointer the specified number of bytes, but we shall see.
