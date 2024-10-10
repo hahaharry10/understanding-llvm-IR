@@ -151,7 +151,7 @@ Which has the following additions:
 - String constant.
 
 Look at `helloWorld.ll`:
-```
+```helloWorld.ll
 ; ModuleID = 'helloWorld.c'
 source_filename = "helloWorld.c"
 target datalayout = "e-m:e-i8:8:32-i16:16:32-i64:64-i128:128-n32:64-S128"
@@ -186,7 +186,7 @@ attributes #1 = { "frame-pointer"="non-leaf" "no-trapping-math"="true" "stack-pr
 !4 = !{i32 7, !"frame-pointer", i32 1}
 !5 = !{!"Debian clang version 16.0.6 (27)"}
 ```
-Other than the file name changes at the top, `helloWorld.ll` is similar to `cla.ll` but has these lines extra:
+Other than the file name changes at the top, `helloWorld.ll` is similar to `cla.ll` but has these extra lines:
 - Line 6: The definition of a global string constant.
 - Line 16: `printf` function call.
 - Line 23: global function declaration for `printf`.
@@ -212,7 +212,7 @@ Let's get understanding:
 ```
 - `call`: Transfer control flow to specified function.
 - `i32`: Function return type.
-- `(ptr, ...)`: Specifies argument signature (in this case, first argument is a pointer, and there can be various proceeding arguments). This signature is added to help type checking and improve readability of the call.
+- `(ptr, ...)`: Specifies argument signature (in this case, first argument is a pointer, and there can be various proceeding arguments). This signature is added to help type checking and improve readability of the call and is not necessary for operation.
 - `@printf`: Function being called is global variable `printf`.
 - `(ptr noundef @.str)`: Only argument is the non-udefined global string constant `@.str`.
 
