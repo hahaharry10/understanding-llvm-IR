@@ -9,7 +9,7 @@ My first thought is that this is going to be an easy section. My guess is a vari
 - Operate on the value: ` [OPERATION] [DTYPE] [OPERAND 1], [OPERAND 2] `
 
 ### Registers:
-Before we delve into variables lets understand a little more about intermediate representation and their use of registers. The following information is taken from sources:
+Before we delve into variables lets understand a little more about intermediate representation and its use of registers. The following information is taken from sources:
 - Chisnall, D. 2017. LLVM IR and Transform Pipeline [Online]. [12 October 2024]. Available from: https://llvm.org/devmtg/2017-06/1-Davis-Chisnall-LLVM-2017.pdf
 - Gao, X. Unavailable. Unlimited Register Machine [Online]. [13 October 2024]. Available from: https://www.cs.sjtu.edu.cn/~gao-xf/computability/Document/Slide03-URM.pdf
 
@@ -71,7 +71,7 @@ Then the value of 'A' (65) is written into the memory pointed to by register 8, 
 
 Here we see that to simulate a variable while conforming to SSA principles, registers are assigned a pointer to memory in the stack, and that memory can be updated and rewritten as many times as needed without reassigning to the same register. Furthermore, to operate on a value, you must `load` the operants into a register, and store the result into another regester, and then use `store` to write the value in the register into memory.
 
-Pretty easy right? It just gets quite lengthy.
+Pretty easy right? It just gets quite lengthy. Other operations follow that structure, and can be found in the [documentation](https://llvm.org/docs/LangRef.html#label-type).
 
 ### Conditions:
 Let's start with `simpleCondition.c` that contains a simple condition statement:
@@ -150,7 +150,7 @@ Let's experiment by seeing the corresponding IR to different conditions:
     br i1 %9, label %10, label %11
     ```
 
-All these conditionals vary in comparitor, whos return value is assigned to a register, and the contents of that register is used in a `br` statement to decide on the right branch to take.
+The only difference in these comparisons is the keyword in the `icmp` instruction. In each example the result is stores in a register and that register is used in a `br` instruction to decide the branch to divert control to.
 
 Seems easy enough. Let's look at the documentation to gain clarity on some of the new syntax here:
 - `i1`: Single bit integer, to represent either `true` or `false` (or `1` or `0`).
@@ -378,7 +378,7 @@ Lets use the [documentation](https://llvm.org/docs/LangRef.html#label-type) to u
     - Arguments are self explanatory, asks very similar to the ternary operator in C.
     - If the condition is `true`, the result is `<VALUE1>`, otherwise the result is `<VALUE2>`.
 
-Even though we have understood the `zext .. to` instruction, its involvement in the codes function appears irrelevant. I removed it and ran the code and the output was identical, therefore when explaining the implemetation of a ternary operator I will be ignoring it.
+Even though we have understood the `zext .. to` instruction, its involvement in the codes function appears irrelevant. I edited the code so that the line is removed and the output seemed identical. Therefore, the below explanation of the ternary operator I will be ignoring it.
 
 The ternary operator starts off by getting the value of `cond` which is pointed to by register (line 17). The value is then compared under equality to 0 (line 18). The `select` instruction is then used under the value in register 9 (which is the result of the comparison), with `true` outputting 0, and `false` outputting 1 (line 20). Finally the result is stored in `result` which is pointed to by register 7.
 
