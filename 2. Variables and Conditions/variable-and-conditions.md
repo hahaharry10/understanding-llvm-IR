@@ -343,7 +343,7 @@ int main( int argc, char** argv ) {
 ```
 
 The body of the `@main` in the gemerated IR, `ternaryOp.ll`:
-```ternaryOp.c
+```ternaryOp.ll
 define dso_local i32 @main(i32 noundef %0, ptr noundef %1) #0 {
   %3 = alloca i32, align 4
   %4 = alloca i32, align 4
