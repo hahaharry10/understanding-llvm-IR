@@ -26,7 +26,7 @@ Intermediate Representation is an Unlimited Single-Assignment Register Machine i
 
 ### Single Variable:
 Have a look at `singleVariable.c` and its generated IR in `singleVariable.ll`. The only addition to the C file is the introduction of an integer, and its assignment to the value 3. The IR that represents these operations are:
-```
+```ll
 %6 = alloca i32, align 4
 store i32 3, ptr %6, align 4
 ```
