@@ -34,8 +34,8 @@ So in short, variable declaration and assignment is easy. You assign to a regist
 
 
 ### Variable Operations:
-Look at variableOperations.c and variableOperations.ll. Below is the function body of `@main` with comments outlining each line's purpose:
-```
+Look at `variableOperations.c` and `variableOperations.ll`. Below is the function body of `@main` with comments outlining each line's purpose:
+```variableOperations.ll
 define dso_local i32 @main(i32 noundef %0, ptr noundef %1) #0 {
     %3 = alloca i32, align 4            ; Allocate 32 btis (integer) of memory to stack and store pointer in register 3.
     %4 = alloca i32, align 4            ; Allocate 32 bits (integer) of memory to stack and store pointer in register 4.
@@ -75,7 +75,7 @@ Pretty easy right? It just gets quite lengthy.
 
 ### Conditions:
 Let's start with `simpleCondition.c` that contains a simple condition statement:
-```
+```simpleCondition.c
 int main( int argc, char** argv ) {
     int cond;
     int result;
@@ -89,7 +89,7 @@ int main( int argc, char** argv ) {
 ```
 
 This is the body of the `@main` function in the generated IR in `simpleCondition.ll`:
-```
+```simpleCondition.ll
 define dso_local i32 @main(i32 noundef %0, ptr noundef %1) #0 {
   %3 = alloca i32, align 4
   %4 = alloca i32, align 4
@@ -173,7 +173,7 @@ Seems easy enough. Let's look at the documentation to gain clarity on some of th
 Labels? Labels are identifiers given to basic blocks. Labels are part of the local register numbering, meaning that if a label is marked `10:`, then `%10` represents that label and cannot be reassigned.
 
 Now we can understand (or at least) recognise the operations of a conditional statement lets look at a multi-conditional algorithm. Look at `ifelse.c`:
-```
+```ifelse.c
 int main( int argc, char** argv ) {
     int cond;
     int result;
