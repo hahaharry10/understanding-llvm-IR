@@ -71,7 +71,7 @@ Then the value of 'A' (65) is written into the memory pointed to by register 8, 
 
 Here we see that to simulate a variable while conforming to SSA principles, registers are assigned a pointer to memory in the stack, and that memory can be updated and rewritten as many times as needed without reassigning to the same register. Furthermore, to operate on a value, you must `load` the operants into a register, and store the result into another regester, and then use `store` to write the value in the register into memory.
 
-Pretty easy right? It just gets quite lengthy. Other operations follow that structure, and can be found in the [documentation](https://llvm.org/docs/LangRef.html#label-type).
+Pretty easy right? It just gets quite lengthy. Other operations follow that structure, and can be found in the [documentation](https://llvm.org/docs/LangRef.html).
 
 ### Conditions:
 Let's start with `simpleCondition.c` that contains a simple condition statement:
@@ -164,7 +164,7 @@ Seems easy enough. Let's look at the documentation to gain clarity on some of th
     `<result> = icmp <cond> <type> <opt1>, <opt2>`
     - Returns either boolean value (`i1`) or vector of boolean values (`N x i1`).
     - Compares two operands, `opt1` and `opt2`, according to the condition keyword, `cond`.
-    - Valid condition keywords (see [documentation](https://llvm.org/docs/LangRef.html#label-type) for exhaustive list):
+    - Valid condition keywords (see [documentation](https://llvm.org/docs/LangRef.html#icmp-instruction) for exhaustive list):
         - `eq`: equal
         - `sgt`: Signed greater than
         - `slt`: Signed less than
@@ -362,7 +362,7 @@ define dso_local i32 @main(i32 noundef %0, ptr noundef %1) #0 {
 }
 ```
 
-Lets use the [documentation](https://llvm.org/docs/LangRef.html#label-type) to understand the two new functions (we are ignoring flags):
+Lets use the [documentation](https://llvm.org/docs/LangRef.html) to understand the two new functions (we are ignoring flags):
 - `zext .. to`:
     - Usage: ` <RESULT> = zext <ORIG-INT-TYPE> <VALUE> to <DEST-INT-TYPE> `
     - Takes in a value and casts it to another integer datatype. Both the original and desired datatype must be integer data types.
