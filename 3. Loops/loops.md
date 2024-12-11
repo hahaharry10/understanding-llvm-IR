@@ -98,10 +98,10 @@ Block `%13` contains the logic after the loop which in this case is just a `retu
 
 This loop is again very similar to what we have seen before, but the difference is the order in which the branching occurs. In (while loops)[#while-loops] the condition is called first, but in [do-while loops](#do-while-loops) the logic is executed before branching to the condition block.
 
-### Final Words:
+# Final Words:
 As we have seen the structure of all the loops are quite simple.
 
-For Loops block order:
+### For Loops block order:
 1. Condition block.
     - Branches either to the loop logic block or the block containing the logic after the loop.
 2. Loop logic.
@@ -110,7 +110,7 @@ For Loops block order:
     - Unconditional branch to the condition block.
 4. Logic after the loop.
 
-While Loop block order:
+### While Loop block order:
 1. Condition block.
     - Branches either to the loop logic block or the block containing the logic after the loop.
 2. Loop logic.
@@ -118,7 +118,7 @@ While Loop block order:
     - Only does not reach condition block when `break` keyword is present.
 3. Logic after the loop.
 
-Do-while loop block order:
+### Do-while loop block order:
 1. Loop logic.
     - Branches unconditionally to the condition block. Only does not reach condition block when `break` keyword is present.
 2. Condition block.
@@ -126,3 +126,5 @@ Do-while loop block order:
 3. Logic after the loop.
 
 Note: All these outlines of IR's loop structures are abstract. In reality features like conditions and functions calls would result in the loop logic blocks to actually span across multiple blocks, but at the end of the logic the branching is as described.
+
+Outside of the described structures the design of the loop is quite simple and intuitive. This has been a pretty easy topic.
