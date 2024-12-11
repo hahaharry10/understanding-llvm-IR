@@ -49,3 +49,38 @@ Concluding `for` loop section:
 - A individual block is designated for the condition variable to be tested under the condition, and to update the variable.
 - The logic within the `for` loop is placed inside a branch.
 - The logic after the loop is in a separate block and is branched to in the condition branch when the condition is broken.
+
+### While Loops:
+Look at [while.c](./while.c) adn look at the corresponding IR in [while.ll](./while.ll).
+
+`main` block:
+Standard stuff. Initialise variables `i` and `j` in registers `%2` and `%3` respectively, and assign them values 1 and 0 respectively. Branch to block `%4`.
+
+Block `%4` is the condition block, and loads the variable `i` and branches to block `%7` if the condition holds, and branches to block `%17` otherwise. The only thing of note here is that in conditions where the comparison operator is specified the comparison is an inequality comparison to 0. I know this is fairly intuitive but its cool to finally see it explicitely written.
+
+Block `%7` is what we are interested in and is as follows:
+```
+7:                                                ; preds = %4
+  %8 = load ptr, ptr @stdout, align 8
+  %9 = load i32, ptr %3, align 4
+  %10 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %8, ptr noundef @.str, i32 noundef %9)
+  %11 = load i32, ptr %3, align 4
+  %12 = icmp sgt i32 %11, 10
+  br i1 %12, label %13, label %14
+```
+
+This block starts off (first 3 lines) with a function call to `fprintf` (nothing new). Then the value of j is loaded and compared to the value of 10 using the greater than comparator. If the condition is true, the program branches to block `%13`, otherwise flow is branched to block `%14`.
+
+Block `%13` is as follows:
+```
+13:                                               ; preds = %7
+  br label %17
+```
+
+Block `%13` is where the logic of the `break` keyword is used, and in IR the break keyword just branches to the block continuing the logic after the loop.
+
+Block `%14` is simple as this block just comtains the logic of the loop after the `if` statement, which in this case just contains the incrementing of `j`. Once the logic is completed, the program branches to the block `%4`; The condition block.
+
+And of course the last block (block `%17`) contains the logic after the loop, which is the return statement.
+
+After understanding the structure of the [for loop](./loops.md#For-Loop), the while loop is pretty easy to understand. The only thing learned (that isn't even related to the while loop) is the implementation of the `break` keyword.
