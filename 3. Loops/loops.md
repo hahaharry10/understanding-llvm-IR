@@ -14,7 +14,7 @@ Let's see how wrong I am...
 Look at [for.c](./for.c) and look at the corresponding IR in [for.ll](./for.ll). Ignoring the preamble of calling the initial variables we see that there is a jump straight to block `%3` on line 15.
 
 Block `%3` is as follows:
-```
+```ll
 3:                                                ; preds = %10, %0
   %4 = load i32, ptr %2, align 4
   %5 = icmp slt i32 %4, 10
@@ -31,7 +31,7 @@ Conclusions made from understanding this block:
 Block `%6` is quite similar to what we have already seen - a standard function call, but the branch to block `%10` is worth noting...
 
 Block `%10` is as follows:
-```
+```ll
 10:                                               ; preds = %6
   %11 = load i32, ptr %2, align 4
   %12 = add nsw i32 %11, 1
@@ -59,7 +59,7 @@ Standard stuff. Initialise variables `i` and `j` in registers `%2` and `%3` resp
 Block `%4` is the condition block, and loads the variable `i` and branches to block `%7` if the condition holds, and branches to block `%17` otherwise. The only thing of note here is that in conditions where the comparison operator is specified the comparison is an inequality comparison to 0. I know this is fairly intuitive but its cool to finally see it explicitely written.
 
 Block `%7` is what we are interested in and is as follows:
-```
+```ll
 7:                                                ; preds = %4
   %8 = load ptr, ptr @stdout, align 8
   %9 = load i32, ptr %3, align 4
@@ -72,7 +72,7 @@ Block `%7` is what we are interested in and is as follows:
 This block starts off (first 3 lines) with a function call to `fprintf` (nothing new). Then the value of j is loaded and compared to the value of 10 using the greater than comparator. If the condition is true, the program branches to block `%13`, otherwise flow is branched to block `%14`.
 
 Block `%13` is as follows:
-```
+```ll
 13:                                               ; preds = %7
   br label %17
 ```
