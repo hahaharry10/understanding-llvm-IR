@@ -83,4 +83,4 @@ Block `%14` is simple as this block just comtains the logic of the loop after th
 
 And of course the last block (block `%17`) contains the logic after the loop, which is the return statement.
 
-After understanding the structure of the [for loop](./loops.md#For-Loop), the while loop is pretty easy to understand. The only thing learned (that isn't even related to the while loop) is the implementation of the `break` keyword.
+After understanding the structure of the [for loop](#for-loops), the while loop is pretty easy to understand. The only thing learned (that isn't even related to the while loop) is the implementation of the `break` keyword.
