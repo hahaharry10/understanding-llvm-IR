@@ -69,7 +69,7 @@ Block `%7` is what we are interested in and is as follows:
   br i1 %12, label %13, label %14
 ```
 
-This block starts off (first 3 lines) with a function call to `fprintf` (nothing new). Then the value of j is loaded and compared to the value of 10 using the greater than comparator. If the condition is true, the program branches to block `%13`, otherwise flow is branched to block `%14`.
+This block starts off (first 3 lines) with a function call to `fprintf` (nothing new). Then the value of `j` is loaded and compared to the value of 10 using the greater than comparator. If the condition is true, the program branches to block `%13`, otherwise flow is branched to block `%14`.
 
 Block `%13` is as follows:
 ```ll
@@ -77,10 +77,52 @@ Block `%13` is as follows:
   br label %17
 ```
 
-Block `%13` is where the logic of the `break` keyword is used, and in IR the break keyword just branches to the block continuing the logic after the loop.
+Block `%13` is where the logic of the `break` keyword is used, and in IR the `break` keyword just branches to the block continuing the logic after the loop.
 
-Block `%14` is simple as this block just comtains the logic of the loop after the `if` statement, which in this case just contains the incrementing of `j`. Once the logic is completed, the program branches to the block `%4`; The condition block.
+Block `%14` is simple as this block just contains the logic of the loop after the `if` statement, which in this case just contains the incrementing of `j`. Once the logic is completed, the program branches to the block `%4`; The condition block.
 
 And of course the last block (block `%17`) contains the logic after the loop, which is the return statement.
 
 After understanding the structure of the [for loop](#for-loops), the while loop is pretty easy to understand. The only thing learned (that isn't even related to the while loop) is the implementation of the `break` keyword.
+
+### Do-While Loops:
+Last but not least, we reach the third and final loop... the do-while loop. As per usual take a look at [do-while.c](./do-while.c) and [do-while.ll](./do-while.ll).
+
+As you would expect we ignore the preamble of initialising variables `i` and `j` and go straight to block `%4`.
+
+Block `%4` contains the loop body logic, the calling of `fprintf` and incrementing of `j`, but at the end there is a unconditional branch to block `%10`.
+
+Block `%10` is the condition block comparing the variable `j` (stored in register `%3`) to the value of 10 under the less than comparator. If the condition holds, the program branches back to block `%4`, otherwise the program branches to block `%13`.
+
+Block `%13` contains the logic after the loop which in this case is just a `return` statement.
+
+This loop is again very similar to what we have seen before, but the difference is the order in which the branching occurs. In (while loops)[#while-loops] the condition is called first, but in [do-while loops](#do-while-loops) the logic is executed before branching to the condition block.
+
+### Final Words:
+As we have seen the structure of all the loops are quite simple.
+
+For Loops block order:
+1. Condition block.
+    - Branches either to the loop logic block or the block containing the logic after the loop.
+2. Loop logic.
+    - Branches unconditionally to the block containing the operation on the condition variable. Only does not reach said block when `break` keyword is present.
+3. Condition variable operation.
+    - Unconditional branch to the condition block.
+4. Logic after the loop.
+
+While Loop block order:
+1. Condition block.
+    - Branches either to the loop logic block or the block containing the logic after the loop.
+2. Loop logic.
+    - Branches unconditionally to the condition block.
+    - Only does not reach condition block when `break` keyword is present.
+3. Logic after the loop.
+
+Do-while loop block order:
+1. Loop logic.
+    - Branches unconditionally to the condition block. Only does not reach condition block when `break` keyword is present.
+2. Condition block.
+    - Branches either to the loop logic block or the block containing the logic afer the loop.
+3. Logic after the loop.
+
+Note: All these outlines of IR's loop structures are abstract. In reality features like conditions and functions calls would result in the loop logic blocks to actually span across multiple blocks, but at the end of the logic the branching is as described.
