@@ -1,5 +1,5 @@
 # Break, Continue, and Return
-We saw in the previous section ([Loops](../3. Loops/loops.md#while-loops)) we were introduced to the `break` statement and its implementations. Here we will look at it again as well as the `continue` and `return` keywords.
+We saw in the previous section, [Loops](../3.%20Loops/loops.md#while-loops), we were introduced to the `break` statement and its implementations. Here we will look at it again as well as the `continue` and `return` keywords.
 
 ### Break:
 The function of a `break` is to exit the most recent loop. Look at [break.c](./break.c). Here we have two uses of a `break`, the first is in the scope of the loop, the other is in a conditional child scope of the loop.
@@ -50,6 +50,7 @@ Simple ay?
 
 ### Return:
 `return` statements are implemented through the `ret` command. `ret` commands are used to return control flow back to the parent process. In the documentations it says:
+
     "The ‘ret’ instruction is used to return control flow (and optionally a value) from a function back to the caller."
 
 The ret instruction in LLVM IR returns control flow (and optionally a value) from a function back to the caller. When a function is called, control flow shifts to the called function, pausing the current process. Once the function completes, control returns to the original process.
